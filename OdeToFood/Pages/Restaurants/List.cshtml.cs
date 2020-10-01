@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
@@ -9,11 +10,10 @@ using Microsoft.Extensions.Configuration;
 using OdeToFood.Core.Models;
 using OdeToFood.Data;
 
-namespace OdeToFood.Pages.Restaurants
-{
-    public class ListModel : PageModel
-    {
+namespace OdeToFood.Pages.Restaurants {
+    public class ListModel : PageModel {
         public string Message { get; set; }
+
         public string SiteUser { get; set; }
 
         private readonly IConfiguration config;
@@ -24,8 +24,7 @@ namespace OdeToFood.Pages.Restaurants
         [BindProperty(SupportsGet = true)]
         public string SearchTerm { get; set; }
 
-        public ListModel(IConfiguration config, IRestaurantData restaurantData)
-        {
+        public ListModel(IConfiguration config, IRestaurantData restaurantData) {
             this.config = config;
             this.restaurantData = restaurantData;
         }

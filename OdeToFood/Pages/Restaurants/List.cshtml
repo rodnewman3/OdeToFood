@@ -8,7 +8,7 @@
 <form method="get">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" asp-for="SearchTerm"/>
+            <input type="search" class="form-control" asp-for="SearchTerm" />
             <button class="btn btn-primary">Search</button>
         </div>
     </div>
@@ -21,6 +21,7 @@
             <th>Location</th>
             <th>Cuisine</th>
             <th>Details</th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -33,8 +34,15 @@
                 <td>
                     <a asp-page="./Detail" asp-route-restaurantId="@restaurant.Id" class="btn">Details</a>
                 </td>
+                <td>
+                    <a class="btn btn" asp-page="./Edit" asp-route-restaurantId="@restaurant.Id">Edit</a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+<!--Add an "Add New" button-->
+<a asp-page=".\Edit" class="btn btn-primary">Add Restaurant</a>
+
 <p>@Model.Message</p>

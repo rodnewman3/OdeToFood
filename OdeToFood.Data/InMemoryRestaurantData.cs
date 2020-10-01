@@ -6,41 +6,56 @@ using System.Text;
 using OdeToFood.Core.Enums;
 using OdeToFood.Core.Models;
 
-namespace OdeToFood.Data
-{
-    public class InMemoryRestaurantData : IRestaurantData
-    {
+namespace OdeToFood.Data {
+    public class InMemoryRestaurantData : IRestaurantData {
         private readonly List<Restaurant> restaurants;
 
         //constructor
-        public InMemoryRestaurantData()
-        {
-            restaurants = new List<Restaurant>()
-            {
-                new Restaurant { Id = 1, Name = "Scott's Pizza", Location="Maryland", Cuisine=CuisineType.Italian},
-                new Restaurant { Id = 2, Name = "Cinnamon Club", Location="London", Cuisine=CuisineType.Italian},
-                new Restaurant { Id = 3, Name = "La Costa", Location = "California", Cuisine=CuisineType.Mexican}
+        public InMemoryRestaurantData() {
+            restaurants = new List<Restaurant>() {
+                new Restaurant { Id = 1, Name = "Scott's Pizza", Location = "Maryland", Cuisine = CuisineType.Italian }, 
+                new Restaurant { Id = 2, Name = "Cinnamon Club", Location = "London", Cuisine = CuisineType.Italian }, 
+                new Restaurant { Id = 3, Name = "La Costa", Location = "California", Cuisine = CuisineType.Mexican }
             };
         }
 
         /// <inheritdoc />
-        public IEnumerable<Restaurant> GetAll()
-        {
+        public IEnumerable<Restaurant> GetAll() {
             return restaurants.OrderBy(restaurant => restaurant.Name);
         }
 
         /// <inheritdoc />
-        public Restaurant GetById(int id)
-        {
+        public Restaurant GetById(int id) {
             return restaurants.SingleOrDefault(r => r.Id == id);
         }
 
         /// <inheritdoc />
-        public IEnumerable<Restaurant> GetRestaurantsByName(string name = null)
-        {
-            return restaurants
-                .Where(restaurant => string.IsNullOrEmpty(name) || restaurant.Name.ToLower().StartsWith(name.ToLower()))
-                .OrderBy(restaurant => restaurant.Name);
+        public IEnumerable<Restaurant> GetRestaurantsByName(string name = null) {
+            return restaurants.Where(restaurant => string.IsNullOrEmpty(name) || restaurant.Name.ToLower().StartsWith(name.ToLower())).OrderBy(restaurant => restaurant.Name);
+        }
+
+        /// <inheritdoc />
+        public Restaurant Update(Restaurant updatedRestaurant) {
+            Restaurant restaurant = restaurants.SingleOrDefault(r => r.Id == updatedRestaurant.Id);
+            
+            if (restaurant != null) {
+                restaurant.Name = updatedRestaurant.Name;
+                restaurant.Location = updatedRestaurant.Location;
+                restaurant.Cuisine = updatedRestaurant.Cuisine;
+            }
+            return restaurant;
+        }
+
+        /// <inheritdoc />
+        public Restaurant Add(Restaurant newRestaurant) {
+            newRestaurant.Id = restaurants.Max(r => r.Id) + 1;
+            restaurants.Add(newRestaurant);
+            return newRestaurant;
+        }
+
+        /// <inheritdoc />
+        public int Commit() {
+            return 0;
         }
     }
 }

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OdeToFood.Core.Enums
-{
+namespace OdeToFood.Core.Enums {
     public enum CuisineType {
         None,
         Mexican,
